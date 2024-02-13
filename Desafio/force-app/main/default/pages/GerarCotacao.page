@@ -1,0 +1,56 @@
+<apex:page controller="GerarCotacaoController"  renderAs="pdf" showHeader="false" sidebar="false" standardStylesheets="true" applyBodyTag="false" applyHtmlTag="false">
+    <style>
+        @page {
+            size: A4;
+            margin: 1cm;
+        }
+    </style>
+    <apex:form >
+ <div style="position: absolute; top: 0; right: 0; width: 100%; text-align: right; margin: 1rem;">
+            <img src="{!$Resource.logo}" alt="Logo" style="width: 100px; height: auto;" />
+        </div>
+
+        <div style="margin: 1rem;">
+            <div>
+                <label style="display: block; margin-bottom: 0.5rem;">Nome do Cliente:</label>
+                <span style="border-bottom: 1pt solid black; width:50%; display: inline-block;">{!currentQuotation.Nome_do_Cliente__r.Name}</span>
+            </div>
+            <div style="margin-top: 1rem; margin-bottom: 3rem;">
+                <label style="display: block; margin-bottom: 0.5rem;">Nome da Cotação:</label>
+                <span>{!currentQuotation.Name}</span>
+            </div>
+        </div>
+
+        <table id="MainTable" align="center" cellspacing="0" style="width:100%; margin: auto; border-collapse: collapse; border: 1px solid black;">
+            <thead>
+                <tr style="border-bottom: 1pt solid black;">
+                    <th style="width:50%; border: 1px solid black;">Nome do Produto</th>
+                    <th style="width:50%; border: 1px solid black;">Valor Unitário</th>
+                    <th style="width:50%; border: 1px solid black;">Quantidade</th>
+                    <th style="width:50%; border: 1px solid black;">Desconto</th>
+                    <th style="width:50%; border: 1px solid black;">Margem de Lucro</th>
+                    <th style="width:50%; border: 1px solid black;">Porcentagem de Imposto</th>
+                    <th style="width:50%; border: 1px solid black;">Preço Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                <apex:repeat value="{!productList}" var="produto">
+                    <tr style="border-bottom: 1pt solid black;">
+                        <td style="width:50%; border: 1px solid black;">{!produto.Name}</td>
+                        <td style="width:50%; border: 1px solid black;">{!produto.Valor_Unitario__c}</td>
+                        <td style="width:50%; border: 1px solid black;">{!produto.Quantidade__c}</td>
+                        <td style="width:50%; border: 1px solid black;">{!produto.Desconto__c}</td>
+                        <td style="width:50%; border: 1px solid black;">{!produto.Margem_de_Lucro__c}</td>
+                        <td style="width:50%; border: 1px solid black;">{!produto.Porcentagem_de_Imposto__c}</td>
+                        <td style="width:50%; border: 1px solid black;">{!produto.Valor_Final__c}</td>
+                    </tr>
+                </apex:repeat>
+            </tbody>
+        </table>
+
+        <div style="margin: 1rem; text-align: center;">
+            <label style="display: block; margin-bottom: 0.5rem;">Preço Total:</label>
+            <span>{!currentQuotation.Valor_Total__c}</span>
+        </div>
+    </apex:form>
+</apex:page>
